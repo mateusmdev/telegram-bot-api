@@ -16,8 +16,12 @@ class Database{
         this._strategy = concrete
     }
 
-    async save(){
-        this._strategy.save()
+    async save(data){
+        return this._strategy.save(data)
+    }
+
+    async findAll(path, ...where){
+        return this._strategy.findAll(path, ...where)
     }
 }
 

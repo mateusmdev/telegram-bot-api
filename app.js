@@ -14,17 +14,42 @@ const adminRouter = require('./src/routes/admin')
 const chatRouter = require('./src/routes/chat')
 
 app.use(cors())
-app.use(express.urlencoded( {extended: false} ))
+app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 
 app.use('/', adminRouter)
 app.use('/', chatRouter)
 
 bot.use(async (ctx, next) => {
-    const start = new Date()
+    const a = await database.findAll('chat/', 'first_name', '==', 'Mateus')
+
     const { update } = ctx
-    database.save()
-    console.log(update)
+    const { chat, date, text } = update.message
+
+    const data = {
+        userData: {
+            ...chat
+        },
+        collectionObj: {
+            name: 'chat',
+            primaryKey: {
+                value: chat.id,
+                name: 'id'
+            },
+            subcollection: {
+                isExist: true,
+                name: 'message',
+                subData: {
+                    text,
+                    type: 'user',
+                    timestamp: date,
+                }
+            }
+        }
+    }
+
+    //const start = new Date()
+    const doc = await database.save(data)
     await next()
 })
 
