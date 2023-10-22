@@ -1,12 +1,13 @@
 const express = require('express')
 const app = express()
 const cors = require('cors')
-const { Telegraf } = require('telegraf')
+const { Telegraf, Telegram } = require('telegraf')
 const database = require('./src/database/database')
 const firestore = require('./src/database/firestore')
 
 const token = process.env.TELEGRAM_TOKEN
 const bot = new Telegraf(token)
+
 
 database.strategy = firestore
 
@@ -17,6 +18,10 @@ app.use(cors())
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 
+app.use((req, res, next) => {
+    req.telegram = new Telegram(token)
+    next()
+})
 app.use('/', adminRouter)
 app.use('/', chatRouter)
 

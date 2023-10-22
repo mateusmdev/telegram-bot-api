@@ -38,7 +38,7 @@ class Jwt {
         if (isValidUser) {
             try {
                 token = req.headers.authorization.split(' ')[1]
-                const decoded = await this.decodeToken(token)
+                const decoded = await Jwt.instance.decodeToken(token)
                 req.jwtData = decoded
                 next()
             } catch (error) {
