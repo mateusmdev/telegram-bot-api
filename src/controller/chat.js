@@ -3,8 +3,11 @@ const database = require('./../database/database')
 class Chat {
     async findAll(req, res) {
         try {
-            console.log('FindAll')
-            return res.status(200).json({})
+            const result = await database.findAll('chat')
+            return res.status(200).json({
+                data: result,
+                status: 200
+            })
         } catch (error) {
             return res.status(500).json({
                 error
@@ -25,12 +28,10 @@ class Chat {
 
     async sendMessage(req, res) {
         try {
-            console.log('SendMessage')
             const { text, chatId } = req.body
             const { telegram } = req
 
             const isValid = !(text == undefined) && chatId
-            console.log(text)
             if (!isValid) return res.status(401).json({
                 message: 'The message was not sent because the body data is invalid!',
                 status: 401

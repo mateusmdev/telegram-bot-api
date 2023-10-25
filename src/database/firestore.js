@@ -1,6 +1,6 @@
 const Strategy = require("./strategy");
 const { initializeApp } = require('firebase/app')
-const { getFirestore, getDocs, doc, collection, addDoc, query, where } = require('firebase/firestore')
+const { getFirestore, getDocs, collection, addDoc, query, where } = require('firebase/firestore')
 
 const firebaseConfig = {
     apiKey: process.env.API_KEY,
@@ -34,7 +34,7 @@ class Firestore extends Strategy {
                 //const documentRef = await addDoc(collectionRef, userData)
                 const subcollectionRef = collection(documentRef, subcollection.name);
                 return await addDoc(subcollectionRef, subcollection.subData)
-            } else if(docs.length < 1) {
+            } else if (docs.length < 1) {
                 return await addDoc(collectionRef, userData)
             }
 
@@ -48,7 +48,13 @@ class Firestore extends Strategy {
     async findAll(path, ...whereParam) {
         try {
             const docs = await this._findDocs(path, ...whereParam)
-            const data = docs.docs.map(doc => doc.data())
+            const data = docs.docs.map(doc => {
+                const data = {
+                    documentId: doc.id,
+                    ...doc.data()
+                }
+                return data
+            })
             return data
         } catch (error) {
             throw error
@@ -60,7 +66,8 @@ class Firestore extends Strategy {
             const collectionNames = path.split('/')
             const mainRef = collectionNames.shift()
             const deepRef = collection(this._db, mainRef, ...collectionNames)
-            const queryResult = query(deepRef, where(...whereParam))
+            const condition = whereParam.length > 0 ? where(...whereParam) : null
+            const queryResult = query(deepRef, condition)
             const result = await getDocs(queryResult)
             return result
         } catch (error) {

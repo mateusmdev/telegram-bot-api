@@ -19,7 +19,6 @@ class Admin {
                     const token = await jwt.generateToken({
                         username
                     })
-                    console.log(token)
 
                     return res.status(201).json({
                         message: 'User has been authenticated',
