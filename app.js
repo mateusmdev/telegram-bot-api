@@ -26,10 +26,9 @@ app.use('/', adminRouter)
 app.use('/', chatRouter)
 
 bot.use(async (ctx, next) => {
-    const a = await database.findAll('chat/', 'first_name', '==', 'Mateus')
 
     const { update } = ctx
-    const { chat, date, text } = update.message
+    const { chat, text } = update.message
 
     const data = {
         userData: {
@@ -47,13 +46,12 @@ bot.use(async (ctx, next) => {
                 subData: {
                     text,
                     type: 'user',
-                    timestamp: date,
+                    timestamp: Date.now()
                 }
             }
         }
     }
 
-    //const start = new Date()
     const doc = await database.save(data)
     await next()
 })

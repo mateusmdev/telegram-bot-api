@@ -15,17 +15,6 @@ class Chat {
         }
     }
 
-    async findOne(req, res) {
-        try {
-            console.log('FindOne')
-            return res.status(200).json({})
-        } catch (error) {
-            return res.status(500).json({
-                error
-            })
-        }
-    }
-
     async sendMessage(req, res) {
         try {
             const { text, chatId } = req.body
@@ -67,17 +56,6 @@ class Chat {
             return res.status(500).json({
                 message: 'It was not possible to process the request',
                 status: 500
-            })
-        }
-    }
-
-    async delete(req, res) {
-        try {
-            console.log('Delete')
-            return res.status(200).json({})
-        } catch (error) {
-            return res.status(500).json({
-                error
             })
         }
     }

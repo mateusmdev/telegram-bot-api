@@ -1,5 +1,4 @@
 const { initializeApp } = require('firebase/app')
-const { getFirestore, setDoc, doc } = require('firebase/firestore')
 
 const firebaseConfig = {
     apiKey: process.env.API_KEY,
@@ -13,20 +12,6 @@ const firebaseConfig = {
 class Firebase {
     constructor() {
         this.app = initializeApp(firebaseConfig)
-    }
-
-    async init() {
-        const db = getFirestore()
-        let a = Date.now()
-        const docRef = doc(db, 'teste', a.toString());
-        console.log(docRef)
-
-        await setDoc(docRef, {
-            first: 'Ada',
-            last: 'Lovelace',
-            born: 1815
-        });
-        console.log('done')
     }
 }
 
