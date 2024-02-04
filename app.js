@@ -11,12 +11,12 @@ const bot = new Telegraf(token)
 
 database.strategy = firestore
 
-const adminRouter = require('./src/routes/admin')
-const chatRouter = require('./src/routes/chat')
-
 app.use(cors())
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
+
+const adminRouter = require('./src/routes/admin')
+const chatRouter = require('./src/routes/chat')
 
 app.use((req, res, next) => {
     req.telegram = new Telegram(token)
