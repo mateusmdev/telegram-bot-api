@@ -2,7 +2,6 @@
 
 ## Tabela de Conteúdo
 - [Overview](#overview)
-  - [Screenshot](#screenshot) 
 - [Documentação](#documentação)
   - [Instalação](#instalação)
   - [Rotas](#rotas)
@@ -37,10 +36,6 @@ Um resumo do projeto:
   <li>NPM (Gerenciador de dependências)</li>
   <li>Nodemon (Auto reload)</li>
 </ul>
-
-## Screenshot
-
-<img src="./img-readme/1.png" />
 
 ## Documentação
 
