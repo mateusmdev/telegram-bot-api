@@ -76,13 +76,13 @@ Rotas existentes para essa API:
 
 | Método| Rota |Descrição|Token JWT|
 |------|-------|---------|----------
-| POST |`/authentication` | Rota utilizada para realizar login com base nos dados passados no corpo da requisição | Não
+| POST |`/authentication`| Rota utilizada para realizar login com base nos dados passados no corpo da requisição | Não |
 
 #### Chat
 
 | Método| Rota |Descrição|Token JWT|
 |------|-------|---------|----------
 | GET  |`/chat`| Retorna dados em formato JSON de todos os chat e os dados de seus usuários | Sim |
-| POST |`/chat` | Enviar dados através do corpo da requisição e os persiste no banco da dados como um novo produto | Sim |
+| POST |`/chat`| Enviar dados através do corpo da requisição e os persiste no banco da dados como um novo produto | Sim |
 
 </br>
